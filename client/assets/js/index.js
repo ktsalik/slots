@@ -19,7 +19,7 @@ angular
       restrict: 'E',
       templateUrl: 'assets/templates/game-component.html',
       scope: {
-        title: '=',
+        title: '=gameTitle',
         thumbnail: '=',
       },
       link: function(scope, element, attrs) {
