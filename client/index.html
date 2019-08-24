@@ -3,10 +3,12 @@
     <link href="assets/css/index.css" rel="stylesheet">
   </head>
   <body ng-app="Slots" ng-controller="IndexController as vm" ng-cloak>
-    <game
-      ng-repeat="game in vm.games"
-      title="game.title"
-      thumbnail="game.thumbnail"></game>
+
+    <div banner>Kostas Tsalikidis for <img src="assets/img/follow-the-rabbit.png" height="50"></div>
+
+    <div class="game-list">
+      <game ng-repeat="game in vm.games" title="game.title" thumbnail="game.thumbnail"></game>
+    </div>
 
     <script src="assets/lib/angular.min.js"></script>
     <script src="assets/lib/pixi.min.js"></script>
