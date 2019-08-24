@@ -1,0 +1,14 @@
+{
+  "games": [
+    {
+      "key": "space adventure",
+      "title": "Space Adventure",
+      "thumbnail": "data/games/space adventure/200x200.jpg"
+    },
+    {
+      "key": "ramses treasure",
+      "title": "Ramses Treasure",
+      "thumbnail": ""
+    }
+  ]
+}
