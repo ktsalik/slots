@@ -23,6 +23,7 @@ game.start({
     ['symbol-10', 'symbol-10.png'],
     ['btn-spin', 'but_spin_bg.png'],
     ['btn-exit', 'but_exit.png'],
+    ['btn-autoplay', 'but_maxbet_bg.png'],
   ],
 }).then(function () {
   var background = game.sprite('background');
@@ -56,6 +57,7 @@ game.start({
     btnSpin.visible = true;
     creditsText.visible = true;
     btnExit.visible = true;
+    btnAutoplay.visible = autoplayText.visible = true;
   });
 
   var reelsController = new ReelsController({
@@ -96,6 +98,11 @@ game.start({
       credits--;
       creditsText.text = 'CREDITS: ' + credits;
     }
+    if (autoplay) {
+      setTimeout(function() {
+        reelsController.spin();
+      }, 580 + 900);
+    }
   };
 
   var btnSpin = game.sprite('btn-spin');
@@ -104,8 +111,32 @@ game.start({
   btnSpin._y = 510;
   btnSpin.interactive = true;
   btnSpin.on('click', function() {
+    window.autoplay = false;
     reelsController.spin();
   });
+
+  window.autoplay = false;
+  var btnAutoplay = game.sprite('btn-autoplay');
+  btnAutoplay.visible = false;
+  btnAutoplay._x = 750;
+  btnAutoplay._y = 570;
+  btnAutoplay.interactive = true;
+  btnAutoplay.on('click', function() {
+    window.autoplay = !window.autoplay;
+    if (window.autoplay)
+    reelsController.spin();
+  });
+
+  var autoplayText = new PIXI.Text('AUTOPLAY', {
+    fontFamily: 'walibi',
+    fontSize: 22,
+    fill: '0xFFFFFF',
+  });
+  autoplayText.visible = false;
+  game.app.stage.addChild(autoplayText);
+  autoplayText._x = 794;
+  autoplayText._y = 579;
+  autoplayText.fontSize = 22;
 
   var credits = 111;
   var creditsText = new PIXI.Text('CREDITS: ' + credits, {

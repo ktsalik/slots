@@ -37,6 +37,7 @@ var ReelsController = function(config) {
   var autoStop;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode == 32) {
+      window.autoplay = false;
       _this.spin();
     }
   })
@@ -68,7 +69,7 @@ ReelsController.prototype.spin = function() {
           reel.stop();
         }, i * 200);
       });
-    }, 850);
+    }, 580);
   }
 
   if (typeof this.onSpin == 'function') {
