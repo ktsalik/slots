@@ -69,7 +69,7 @@ ReelsController.prototype.spin = function() {
           reel.stop();
         }, i * 100);
       });
-    }, 560);
+    }, 550);
   }
 
   if (typeof this.onSpin == 'function') {
