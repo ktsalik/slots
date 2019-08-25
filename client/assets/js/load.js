@@ -9,7 +9,7 @@ var gameKey = getUrlParameter('q');
 
 var gameScript = document.createElement('script');
 window.gameKey = gameKey;
-gameScript.src = '/data/games/' + gameKey + '/game.js';
+gameScript.src = '../data/games/' + gameKey + '/game.js';
 document.body.appendChild(gameScript);
 gameScript.onload = function () {
   

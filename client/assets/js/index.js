@@ -4,7 +4,7 @@ angular
     var vm = this;
 
     vm.games = [];
-    fetch('/data/games/metadata.json').then(function(response) {
+    fetch('../data/games/metadata.json').then(function(response) {
       response.json().then(function(data) {
         data.games.forEach(function (game) {
           $scope.$apply(function() {

@@ -20,7 +20,7 @@ class Game {
     return new Promise(function(resolve) {
       var resources = config.resources;
       resources.forEach(function (resource) {
-        _this.app.loader.add(resource[0], '/data/games/' + _this.key + '/' + resource[1]);
+        _this.app.loader.add(resource[0], '../data/games/' + _this.key + '/' + resource[1]);
       });
       _this.app.loader.load(function () {
         resolve();
