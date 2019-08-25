@@ -22,6 +22,7 @@ game.start({
     ['symbol-9', 'symbol-9.png'],
     ['symbol-10', 'symbol-10.png'],
     ['btn-spin', 'but_spin_bg.png'],
+    ['btn-exit', 'but_exit.png'],
   ],
 }).then(function () {
   var background = game.sprite('background');
@@ -54,6 +55,7 @@ game.start({
     });
     btnSpin.visible = true;
     creditsText.visible = true;
+    btnExit.visible = true;
   });
 
   var reelsController = new ReelsController({
@@ -117,9 +119,23 @@ game.start({
   creditsText._y = 38;
   creditsText.fontSize = 20;
 
+  var btnExit = game.sprite('btn-exit');
+  btnExit.visible = false;
+  btnExit._x = 1500 - 82;
+  btnExit.interactive = true;
+  btnExit.on('click', function() {
+    location.href = '../client';
+  });
+
   game.resize();
   game.resize();
   reelsController.reels.forEach(function(reel) {
     reel.resize();
-  })
+  });
+
+  window.addEventListener('resize', function() {
+    reelsController.reels.forEach(function(reel) {
+      reel.resize();
+    });
+  });
 });
