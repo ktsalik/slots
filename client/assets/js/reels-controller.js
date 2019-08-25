@@ -37,24 +37,37 @@ var ReelsController = function(config) {
   var autoStop;
   window.addEventListener('keydown', function(e) {
     if (e.keyCode == 32) {
-      if (_this.reels[0].rolling) {
-        clearTimeout(autoStop);
-        _this.reels.forEach(function (reel) {
-          reel.stop();
-        });
-      } else {
-        _this.reels.forEach(function (reel) {
-          reel.roll();
-        });
-        autoStop = setTimeout(function() {
-          _this.reels.forEach(function(reel, i) {
-            setTimeout(function() {
-              reel.stop();
-            }, i * 200);
-          });
-        }, 1500);
-      }
+      _this.spin();
     }
   })
 };
 
+ReelsController.prototype.spin = function() {
+  var _this = this;
+  var reelsState = 'stopped';
+  _this.reels.forEach(function (reel) {
+    if (reel.rolling) {
+      reelsState = 'rolling';
+    }
+  });
+  if (reelsState == 'rolling') {
+    clearTimeout(autoStop);
+    _this.reels.forEach(function (reel) {
+      clearTimeout(reel.stopTimeout);
+      if (reel.rolling) {
+        reel.stop();
+      }
+    });
+  } else {
+    _this.reels.forEach(function (reel) {
+      reel.roll();
+    });
+    autoStop = setTimeout(function () {
+      _this.reels.forEach(function (reel, i) {
+        reel.stopTimeout = setTimeout(function () {
+          reel.stop();
+        }, i * 200);
+      });
+    }, 850);
+  }
+};

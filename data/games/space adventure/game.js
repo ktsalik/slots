@@ -21,6 +21,7 @@ game.start({
     ['symbol-8', 'symbol-8.png'],
     ['symbol-9', 'symbol-9.png'],
     ['symbol-10', 'symbol-10.png'],
+    ['btn-spin', 'but_spin_bg.png'],
   ],
 }).then(function () {
   var background = game.sprite('background');
@@ -51,6 +52,8 @@ game.start({
     reelsController.reels.forEach(function(reel) {
       reel.setVisible(true);
     });
+    btnSpin.visible = true;
+    creditsText.visible = true;
   });
 
   var reelsController = new ReelsController({
@@ -85,6 +88,31 @@ game.start({
   reelsController.reels.forEach(function(reel) {
     reel.setVisible(false);
   });
+
+  var btnSpin = game.sprite('btn-spin');
+  btnSpin.visible = false;
+  btnSpin._x = 995;
+  btnSpin._y = 510;
+  btnSpin.interactive = true;
+  btnSpin.on('click', function() {
+    if (!reelsController.reels.slice(-1)[0].rolling) {
+      credits--;
+      creditsText.text = 'CREDITS: ' + credits;
+    }
+    reelsController.spin();
+  });
+
+  var credits = 111;
+  var creditsText = new PIXI.Text('CREDITS: ' + credits, {
+    fontFamily: 'walibi',
+    fontSize: 20,
+    fill: '0xFFFFFF',
+  });
+  creditsText.visible = false;
+  game.app.stage.addChild(creditsText);
+  creditsText._x = 380;
+  creditsText._y = 38;
+  creditsText.fontSize = 20;
 
   game.resize();
   game.resize();
