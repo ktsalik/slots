@@ -72,14 +72,16 @@ Reel.prototype.render = function() {
     if (this.offset > this.symbols[0].height) {
       this.offset = 0;
       this.values.unshift(this._spinValues.pop());
+      this.values.splice(-1, 1);
       if (!isNaN(parseInt(this.stopping))) {
         this.stopping++;
       }
     }
 
-    if (this.stopping == 3) {
+    if (this.stopping == this.positions) {
       this.rolling = false;
-      this.stopping = false;
+      this.stopping++;
+      // this.stopping = false;
       var o = {
         _offset: _this.symbols[0].height * 0.33,
       };
@@ -95,6 +97,11 @@ Reel.prototype.render = function() {
             symbol.y = (symbol.height * (i - 1)) + ((_this.y + _this.offset) * game.app.view.height) / game.height;
           }
         },
+        complete: function() {
+          setTimeout(function() {
+            _this.stopping = false;
+          }, 100);
+        },
       });
     }
 
@@ -108,14 +115,16 @@ Reel.prototype.render = function() {
 
 Reel.prototype.roll = function() {
   this.rolling = true;
-  this.values = this.stopValues.slice(0);
+  if (!this.values.length) {
+    this.values = this.stopValues.slice(0);
+  }
   this._spinValues = this.spinValues.slice(0);
 };
 
 Reel.prototype.stop = function() {
   // this.rolling = false;
   this.stopping = 0;
-  
+  this.stopValues = this.values.slice(0);
   var spinValues = [];
   for (var i = 0; i < 100; i++) {
     var n = parseInt(Math.random() * 10) + 1;

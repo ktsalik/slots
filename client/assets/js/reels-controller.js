@@ -47,7 +47,7 @@ ReelsController.prototype.spin = function() {
   var _this = this;
   var reelsState = 'stopped';
   _this.reels.forEach(function (reel) {
-    if (reel.rolling) {
+    if (reel.rolling || reel.stopping != false) {
       reelsState = 'rolling';
     }
   });
@@ -55,7 +55,7 @@ ReelsController.prototype.spin = function() {
     clearTimeout(autoStop);
     _this.reels.forEach(function (reel) {
       clearTimeout(reel.stopTimeout);
-      if (reel.rolling) {
+      if (reel.rolling && reel.stopping == false) {
         reel.stop();
       }
     });
@@ -67,7 +67,7 @@ ReelsController.prototype.spin = function() {
       _this.reels.forEach(function (reel, i) {
         reel.stopTimeout = setTimeout(function () {
           reel.stop();
-        }, i * 200);
+        }, i * 100);
       });
     }, 580);
   }

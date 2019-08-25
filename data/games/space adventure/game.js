@@ -101,7 +101,7 @@ game.start({
     if (autoplay) {
       setTimeout(function() {
         reelsController.spin();
-      }, 580 + 900);
+      }, 580 + 1000);
     }
   };
 
