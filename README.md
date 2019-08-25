@@ -1,5 +1,5 @@
 # slots
 Web Slots client
 
-#Run
+# Run
 Host repository root directory to a web server.
