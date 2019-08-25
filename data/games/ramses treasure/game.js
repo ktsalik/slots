@@ -89,28 +89,80 @@ game.start({
     ],
     symbolCount: 9,
   }, game);
-  reelsController.reels.forEach(function(reel) {
+  reelsController.reels.forEach(function (reel) {
     reel.setVisible(false);
   });
 
-  reelsController.onSpin = function(reelsState) {
+  reelsController.onSpin = function (reelsState) {
     if (reelsState == 'stopped') {
       credits--;
       creditsText.text = 'CREDITS: ' + credits;
     }
+    window.hasWin = Math.random() > 0.7;
     if (autoplay) {
-      setTimeout(function() {
+      setTimeout(function () {
         reelsController.spin();
-      }, 580 + 1000);
+      }, 580 + 1000 + (window.hasWin ? 1000 : 0));
     }
   };
 
+  var animationController;
+  window.symbolAnimationTextures = [];
+  new Promise(function (resolve) {
+    var downloads = [];
+    var sprites = {};
+    for (var i = 1; i <= 9; i++) {
+      downloads.push(new Promise(function (resolveDownload) {
+        var img = new Image();
+        img.src = '../data/games/' + window.gameKey + '/symbol_' + i + '_anim.png';
+        img.onload = resolveDownload;
+        sprites['symbol-' + i] = img;
+      }));
+    }
+    Promise.all(downloads).then(function () {
+      resolve(sprites);
+    });
+  }).then(function (sprites) {
+    for (var key in sprites) {
+      window.symbolAnimationTextures[key] = [];
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 5; j++) {
+          var frame = document.createElement('canvas');
+          frame.width = 140;
+          frame.height = 140;
+          frame.getContext('2d').drawImage(sprites[key], j * 140, i * 140, 140, 140, 0, 0, 140, 140);
+          var texture = PIXI.Texture.fromCanvas(frame);
+          window.symbolAnimationTextures[key].push(texture);
+        }
+      }
+    }
+
+    animationController = new AnimationController(reelsController);
+    animationController.animations.forEach(function (column) {
+      column.forEach(function (a) {
+        game.app.stage.addChild(a);
+      });
+    });
+    reelsController.reels.forEach(function (reel, i) {
+      reel.symbols.forEach(function (symbol, j) {
+        animationController.animations[i][j].x = symbol.x;
+        animationController.animations[i][j].y = symbol.y;
+        animationController.animations[i][j].scale.x = symbol.scale.x;
+        animationController.animations[i][j].scale.y = symbol.scale.y;
+      });
+    });
+    var indexOfBtnSpin = game.app.stage.children.indexOf(c => c.id == 'btn-spin');
+    game.app.stage.children.splice(indexOfBtnSpin, 1);
+    game.app.stage.addChild(btnSpin);
+  });
+
   var btnSpin = game.sprite('btn-spin');
+  btnSpin.id = 'btn-spin';
   btnSpin.visible = false;
   btnSpin._x = 995;
   btnSpin._y = 510;
   btnSpin.interactive = true;
-  btnSpin.on('click', function() {
+  btnSpin.on('click', function () {
     window.autoplay = false;
     reelsController.spin();
   });
@@ -154,19 +206,30 @@ game.start({
   btnExit.visible = false;
   btnExit._x = 1500 - 82;
   btnExit.interactive = true;
-  btnExit.on('click', function() {
+  btnExit.on('click', function () {
     location.href = '../client';
   });
 
   game.resize();
   game.resize();
-  reelsController.reels.forEach(function(reel) {
+  reelsController.reels.forEach(function (reel) {
     reel.resize();
   });
 
-  window.addEventListener('resize', function() {
-    reelsController.reels.forEach(function(reel) {
+  window.addEventListener('resize', function () {
+    reelsController.reels.forEach(function (reel) {
       reel.resize();
     });
+
+    if (animationController) {
+      reelsController.reels.forEach(function (reel, i) {
+        reel.symbols.forEach(function (symbol, j) {
+          animationController.animations[i][j].x = symbol.x;
+          animationController.animations[i][j].y = symbol.y;
+          animationController.animations[i][j].scale.x = symbol.scale.x;
+          animationController.animations[i][j].scale.y = symbol.scale.y;
+        });
+      });
+    }
   });
 });

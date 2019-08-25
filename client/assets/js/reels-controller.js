@@ -27,10 +27,29 @@ var ReelsController = function(config) {
     _this.reels.push(reel);
   });
 
+  var rolling = false;
   (function renderLoop() {
     _this.reels.forEach(function(reel) {
       reel.render();
     });
+
+    var reelsState = 'stopped';
+    _this.reels.forEach(function (reel) {
+      if (reel.rolling || reel.stopping != false) {
+        reelsState = 'rolling';
+      }
+    });
+
+    if (!rolling && reelsState == 'rolling') {
+      rolling = true;
+    }
+    if (rolling && reelsState == 'stopped') {
+      rolling = false;
+      if (typeof _this.onStop == 'function') {
+        _this.onStop();
+      }
+    }
+    
     requestAnimationFrame(renderLoop);
   })();
 
@@ -74,5 +93,6 @@ ReelsController.prototype.spin = function() {
 
   if (typeof this.onSpin == 'function') {
     this.onSpin(reelsState);
+    this.onSpin2(reelsState);
   }
 };
