@@ -12,5 +12,5 @@ window.gameKey = gameKey;
 gameScript.src = '../data/games/' + gameKey + '/game.js';
 document.body.appendChild(gameScript);
 gameScript.onload = function () {
-  
+  (document.querySelector('img[alt="www.000webhost.com"]') || { remove: function() {}}).remove();
 };

@@ -23,6 +23,7 @@ class Game {
         _this.app.loader.add(resource[0], '../data/games/' + _this.key + '/' + resource[1]);
       });
       _this.app.loader.load(function () {
+        document.querySelector('[loading]').remove();
         resolve();
       });
     });
@@ -31,15 +32,15 @@ class Game {
   resize() {
     var _this = this;
     var width, height;
-    if (document.body.offsetWidth < document.body.offsetHeight) {
+    // if (document.body.offsetWidth < document.body.offsetHeight) {
       width = document.body.offsetWidth;
       height = document.body.offsetWidth / this.ratio;
       this.app.renderer.resize(width, height);
-    } else {
-      width = document.body.offsetHeight * this.ratio;
-      height = document.body.offsetHeight;
-      this.app.renderer.resize(width, height);
-    }
+    // } else {
+    //   width = document.body.offsetHeight * this.ratio;
+    //   height = document.body.offsetHeight;
+    //   this.app.renderer.resize(width, height);
+    // }
 
     this.app.stage.children.forEach(function(component) {
       if (component.constructor == PIXI.Sprite) {

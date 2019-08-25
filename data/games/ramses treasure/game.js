@@ -32,7 +32,7 @@ game.start({
   btnMenuPlay._y = 470;
   btnMenuPlay.interactive = true;
   var btnMenuPlayText = new PIXI.Text('PLAY', {
-    fontFamily: 'walibi',
+    fontFamily: 'adonais',
     fontSize: 30,
     fill: '0xFFFFFF',
   });
@@ -44,13 +44,13 @@ game.start({
   var mask = game.sprite('mask');
   mask.visible = false;
 
-  btnMenuPlay.on('click', function () {
+  btnMenuPlay.on('pointerdown', function () {
     menuBackground.visible = false;
     btnMenuPlay.visible = false;
     btnMenuPlayText.visible = false;
 
     mask.visible = true;
-    reelsController.reels.forEach(function(reel) {
+    reelsController.reels.forEach(function (reel) {
       reel.setVisible(true);
     });
     btnSpin.visible = true;
@@ -60,8 +60,7 @@ game.start({
   });
 
   var reelsController = new ReelsController({
-    reels: [
-      {
+    reels: [{
         positions: 3,
         x: 380,
         y: 117,
@@ -162,7 +161,7 @@ game.start({
   btnSpin._x = 995;
   btnSpin._y = 510;
   btnSpin.interactive = true;
-  btnSpin.on('click', function () {
+  btnSpin.on('pointerdown', function () {
     window.autoplay = false;
     reelsController.spin();
   });
@@ -173,14 +172,14 @@ game.start({
   btnAutoplay._x = 750;
   btnAutoplay._y = 570;
   btnAutoplay.interactive = true;
-  btnAutoplay.on('click', function() {
+  btnAutoplay.on('pointerdown', function () {
     window.autoplay = !window.autoplay;
     if (window.autoplay)
-    reelsController.spin();
+      reelsController.spin();
   });
 
   var autoplayText = new PIXI.Text('AUTOPLAY', {
-    fontFamily: 'walibi',
+    fontFamily: 'adonais',
     fontSize: 22,
     fill: '0xFFFFFF',
   });
@@ -192,7 +191,7 @@ game.start({
 
   var credits = 111;
   var creditsText = new PIXI.Text('CREDITS: ' + credits, {
-    fontFamily: 'walibi',
+    fontFamily: 'adonais',
     fontSize: 20,
     fill: '0xFFFFFF',
   });
@@ -206,7 +205,7 @@ game.start({
   btnExit.visible = false;
   btnExit._x = 1500 - 82;
   btnExit.interactive = true;
-  btnExit.on('click', function () {
+  btnExit.on('pointerdown', function () {
     location.href = '../client';
   });
 

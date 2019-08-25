@@ -24,6 +24,7 @@ game.start({
     ['btn-spin', 'but_spin_bg.png'],
     ['btn-exit', 'but_exit.png'],
     ['btn-autoplay', 'but_maxbet_bg.png'],
+    ['btn-fullscreen', 'but_fullscreen.png'],
   ],
 }).then(function () {
   var background = game.sprite('background');
@@ -45,7 +46,7 @@ game.start({
   var mask = game.sprite('mask');
   mask.visible = false;
 
-  btnMenuPlay.on('click', function () {
+  btnMenuPlay.on('pointerdown', function () {
     menuBackground.visible = false;
     btnMenuPlay.visible = false;
     btnMenuPlayText.visible = false;
@@ -163,7 +164,7 @@ game.start({
   btnSpin._x = 995;
   btnSpin._y = 510;
   btnSpin.interactive = true;
-  btnSpin.on('click', function() {
+  btnSpin.on('pointerdown', function() {
     window.autoplay = false;
     reelsController.spin();
   });
@@ -174,7 +175,7 @@ game.start({
   btnAutoplay._x = 750;
   btnAutoplay._y = 570;
   btnAutoplay.interactive = true;
-  btnAutoplay.on('click', function() {
+  btnAutoplay.on('pointerdown', function() {
     window.autoplay = !window.autoplay;
     if (window.autoplay)
     reelsController.spin();
@@ -207,7 +208,7 @@ game.start({
   btnExit.visible = false;
   btnExit._x = 1500 - 82;
   btnExit.interactive = true;
-  btnExit.on('click', function() {
+  btnExit.on('pointerdown', function() {
     location.href = '../client';
   });
 
