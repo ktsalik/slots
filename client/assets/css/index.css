@@ -25,6 +25,7 @@ body {
   align-items: center;
   font-family: 'main';
   background-color: #232323;
+  overflow: hidden;
 }
 
 [banner] {
