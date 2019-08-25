@@ -13,6 +13,10 @@ angular
         });
       });
     });
+
+    vm.play = function(game) {
+      location.href = 'game.html?q=' + game.key;
+    };
   }])
   .directive('game', function() {
     return {

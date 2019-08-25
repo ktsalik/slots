@@ -4,7 +4,7 @@
   </head>
   <body ng-app="Slots" ng-controller="IndexController as vm" ng-cloak>
 
-    <div banner>Kostas Tsalikidis for <img src="assets/img/follow-the-rabbit.png" height="50"></div>
+    <div banner>KTsalikidis for <img src="assets/img/white-rabbit.png" height="50"></div>
 
     <div title>
       <h1>Slots Client</h1>
@@ -16,12 +16,10 @@
     </div>
 
     <div class="game-list">
-      <game ng-repeat="game in vm.games" game-title="game.title" thumbnail="game.thumbnail"></game>
+      <game ng-repeat="game in vm.games" game-title="game.title" thumbnail="game.thumbnail" ng-click="vm.play(game)"></game>
     </div>
 
     <script src="assets/lib/angular.min.js"></script>
-    <script src="assets/lib/pixi.min.js"></script>
-    <script src="assets/js/game.js"></script>
     <script src="assets/js/index.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
