@@ -1,4 +1,4 @@
-var Reel = function(positions, symbolWidth, symbolHeight, game) {
+var Reel = function(positions, symbolCount, symbolWidth, symbolHeight, game) {
   this.positions = positions;
   this.stopValues = [];
   this.spinValues = [];
@@ -10,6 +10,7 @@ var Reel = function(positions, symbolWidth, symbolHeight, game) {
 
   this.symbolWidth = symbolWidth;
   this.symbolHeight = symbolHeight;
+  this.symbolCount = symbolCount;
 
   this.container = new PIXI.Container();
   game.app.stage.addChild(this.container);
@@ -127,7 +128,7 @@ Reel.prototype.stop = function() {
   this.stopValues = this.values.slice(0);
   var spinValues = [];
   for (var i = 0; i < 100; i++) {
-    var n = parseInt(Math.random() * 10) + 1;
+    var n = parseInt(Math.random() * this.symbolCount) + 1;
     spinValues.push(n);
     spinValues.push(n);
     if (Math.random() > 0.5) {

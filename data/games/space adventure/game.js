@@ -88,6 +88,7 @@ game.start({
         y: 117,
       },
     ],
+    symbolCount: 10,
   }, game);
   reelsController.reels.forEach(function(reel) {
     reel.setVisible(false);
