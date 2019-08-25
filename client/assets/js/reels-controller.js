@@ -70,4 +70,8 @@ ReelsController.prototype.spin = function() {
       });
     }, 850);
   }
+
+  if (typeof this.onSpin == 'function') {
+    this.onSpin(reelsState);
+  }
 };

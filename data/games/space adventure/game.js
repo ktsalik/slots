@@ -89,16 +89,19 @@ game.start({
     reel.setVisible(false);
   });
 
+  reelsController.onSpin = function(reelsState) {
+    if (reelsState == 'stopped') {
+      credits--;
+      creditsText.text = 'CREDITS: ' + credits;
+    }
+  };
+
   var btnSpin = game.sprite('btn-spin');
   btnSpin.visible = false;
   btnSpin._x = 995;
   btnSpin._y = 510;
   btnSpin.interactive = true;
   btnSpin.on('click', function() {
-    if (!reelsController.reels.slice(-1)[0].rolling) {
-      credits--;
-      creditsText.text = 'CREDITS: ' + credits;
-    }
     reelsController.spin();
   });
 
