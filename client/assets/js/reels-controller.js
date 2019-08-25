@@ -93,6 +93,8 @@ ReelsController.prototype.spin = function() {
 
   if (typeof this.onSpin == 'function') {
     this.onSpin(reelsState);
+  }
+  if (typeof this.onSpin2 == 'function') {
     this.onSpin2(reelsState);
   }
 };
