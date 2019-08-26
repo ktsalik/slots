@@ -69,7 +69,7 @@ Reel.prototype.setVisible = function(visible) {
 Reel.prototype.render = function() {
   var _this = this;
   if (this.rolling) {
-    this.offset += this.symbols[0].height * 0.2;
+    this.offset += this.symbols[0].height * 0.275;
     if (this.offset > this.symbols[0].height) {
       this.offset = 0;
       this.values.unshift(this._spinValues.pop());
