@@ -31,7 +31,7 @@ body {
 [banner] {
   font-family: josefin;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   background: #BCBCBC;

@@ -95,10 +95,14 @@ game.start({
     reel.setVisible(false);
   });
 
+  var startReelsSound = new Audio();
+  startReelsSound.src = '../data/games/' + gameKey + '/reels-start.mp3';
   reelsController.onSpin = function(reelsState) {
     if (reelsState == 'stopped') {
       credits--;
       creditsText.text = 'CREDITS: ' + credits;
+      startReelsSound.currentTime = 0;
+      startReelsSound.play();
     }
     window.hasWin = Math.random() > 0.7;
     if (autoplay) {
@@ -217,6 +221,16 @@ game.start({
   reelsController.reels.forEach(function(reel) {
     reel.resize();
   });
+  if (animationController) {
+    reelsController.reels.forEach(function (reel, i) {
+      reel.symbols.forEach(function (symbol, j) {
+        animationController.animations[i][j].x = symbol.x;
+        animationController.animations[i][j].y = symbol.y;
+        animationController.animations[i][j].scale.x = symbol.scale.x;
+        animationController.animations[i][j].scale.y = symbol.scale.y;
+      });
+    });
+  }
 
   window.addEventListener('resize', function() {
     reelsController.reels.forEach(function(reel) {
